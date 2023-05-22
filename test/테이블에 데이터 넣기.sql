@@ -88,3 +88,39 @@ insert into email (
     '1'
 	)
 ;
+CREATE TABLE IF NOT EXISTS `phone` (
+  `seq` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `defaultNY` TINYINT NULL,
+  `phoneWhere` VARCHAR(45) NULL,
+  `phoneNum` VARCHAR(45) NOT NULL,
+  `addPerson_seq` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`seq`),
+  INDEX `fk_phone_addPerson_idx` (`addPerson_seq` ASC) VISIBLE,
+  CONSTRAINT `fk_phone_addPerson`
+    FOREIGN KEY (`addPerson_seq`)
+    REFERENCES `addPerson` (`seq`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+;
+
+INSERT INTO phone(
+defaultNY
+, phoneWhere
+, phoneNum
+, addPerson_seq
+)VALUES(
+-- defaultNY
+'1'
+-- phoneWhere (cellPhone home work)
+, 'cellPhone'
+-- phoneNum
+, '010-020-0202'
+-- addPerson_seq
+, '11'
+)
+;
+
+select * from phone;
+UPDATE phone SET defaultNY = "+82-070-222-3333" WHERE seq = "3"
+; 
