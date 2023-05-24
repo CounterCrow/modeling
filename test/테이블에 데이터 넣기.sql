@@ -103,7 +103,6 @@ CREATE TABLE IF NOT EXISTS `phone` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 ;
-
 INSERT INTO phone(
 defaultNY
 , phoneWhere
@@ -122,5 +121,70 @@ defaultNY
 ;
 
 select * from phone;
-UPDATE phone SET defaultNY = "+82-070-222-3333" WHERE seq = "3"
+UPDATE phone 
+SET 
+    defaultNY = '+82-070-222-3333'
+WHERE
+    seq = '3'
 ; 
+-- addfess 테이블 생성
+CREATE TABLE IF NOT EXISTS `address` (
+  `seq` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `defaultNY` TINYINT UNSIGNED NULL,
+  `addressWhere` VARCHAR(45) NULL,
+  `addressPostNum` INT UNSIGNED NULL,
+  `address` VARCHAR(100) NULL,
+  `addPerson_seq` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`seq`),
+  INDEX `fk_address_addPerson1_idx` (`addPerson_seq` ASC) VISIBLE,
+  CONSTRAINT `fk_address_addPerson1`
+    FOREIGN KEY (`addPerson_seq`)
+    REFERENCES `addPerson` (`seq`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+;
+-- 디폴트값 입력
+INSERT INTO address(
+defaultNY
+,addressWhere
+,addressPostNum
+,address
+,addPerson_seq
+)VALUES(
+-- defaultNY
+'1'
+-- addressWhere (회사,집,기타 ,직접입력)
+, '집'
+-- addressPostNum
+, '111116'
+-- address
+, '경기도 김포시 장기동 이젠아파트 2동 108호'
+-- addPerson_seq
+, '5'
+)
+;
+-- 주소 컬럼 호출
+SELECT*FROM address;
+-- 디폴트 아닌곳 회사 입력
+INSERT INTO address(
+defaultNY
+,addressWhere
+,addressPostNum
+,address
+,addPerson_seq
+)VALUES(
+-- defaultNY
+'0'
+-- addressWhere (회사,집,기타 ,직접입력)
+, '회사'
+-- addressPostNum
+, '78887'
+-- address
+, '지리산 중턱 어딘가'
+-- addPerson_seq
+, '11'
+)
+;
+
+
