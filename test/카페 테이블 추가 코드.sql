@@ -34,8 +34,12 @@ CREATE TABLE IF NOT EXISTS `Bulletin` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 ;
+-- Bulletin 테이블 컬럼 타입 변경
+-- Bulletin_type을 바차로 변경
+ALTER TABLE Bulletin MODIFY Bulletin_type VARCHAR(45);
 
 -- Bulletin_comments
+-- Bulletin_addfile 테이블 생성
 CREATE TABLE IF NOT EXISTS `Bulletin_comments` (
   `seq` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `comments_author` VARCHAR(45) NULL,
@@ -43,18 +47,11 @@ CREATE TABLE IF NOT EXISTS `Bulletin_comments` (
   `comments_DT_create` DATETIME NULL,
   `comments_DT_update` DATETIME NULL,
   `comments_DT_delete` DATETIME NULL,
-  `Bulletin_comments_seq1` INT UNSIGNED NOT NULL,
   `Bulletin_seq` INT UNSIGNED NOT NULL,
   `member_seq` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`seq`),
-  INDEX `fk_Bulletin_comments_Bulletin_comments2_idx` (`Bulletin_comments_seq1` ASC) VISIBLE,
   INDEX `fk_Bulletin_comments_Bulletin1_idx` (`Bulletin_seq` ASC) VISIBLE,
   INDEX `fk_Bulletin_comments_member1_idx` (`member_seq` ASC) VISIBLE,
-  CONSTRAINT `fk_Bulletin_comments_Bulletin_comments2`
-    FOREIGN KEY (`Bulletin_comments_seq1`)
-    REFERENCES `Bulletin_comments` (`seq`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Bulletin_comments_Bulletin1`
     FOREIGN KEY (`Bulletin_seq`)
     REFERENCES `Bulletin` (`seq`)
@@ -68,7 +65,6 @@ CREATE TABLE IF NOT EXISTS `Bulletin_comments` (
 ENGINE = InnoDB
 ;
 
--- Bulletin_addfile 테이블 생성
 CREATE TABLE IF NOT EXISTS `Bulletin_addfile` (
   `seq` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `add_file_type` VARCHAR(45) NULL,
