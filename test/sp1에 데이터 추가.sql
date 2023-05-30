@@ -90,4 +90,29 @@ borad_seq
 , '7'
 )
 ;
+insert into boardAttached(
+type
+, path
+, fileNameOri
+, fileName
+, size
+, extension
+, board_seq
+)values(
+-- type
+'1'
+-- path
+, 'www.asdasdasqweasd.co.kr'
+-- fileNameOri
+, 'img1'
+-- fileName
+, '광렬의 울음'
+-- size
+, '24'
+-- extension
+, '???'
+-- board_seq
+, '5'
+);
+
 
