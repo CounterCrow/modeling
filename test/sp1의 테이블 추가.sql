@@ -89,3 +89,4 @@ CREATE TABLE IF NOT EXISTS `sp1`.`boardAttached` (
   PRIMARY KEY (`seq`))
 ENGINE = InnoDB
 ;
+ALTER TABLE boardAttached ADD board_seq int;

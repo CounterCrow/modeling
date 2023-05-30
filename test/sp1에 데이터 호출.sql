@@ -34,14 +34,19 @@ where 1=1
 select
 a.type
 , a.title
+, (select aa.type
+from boardAttached aa
+where 1=1
+and aa.seq = a.Seq
+)as 첨가데이터
 , (select count(*)
 from boradComment cc
 where 1=1
 and cc.borad_seq = a.Seq
 )as 댓글
 -- 셀렉트로 묶어서 처리
-,aa.nickname
-,aa.level
+,b.nickname
+,b.level
 -- 일반으로
 , a.regDatetime
 -- 셀렉트로 묶어서 처리
@@ -51,7 +56,20 @@ and cc.borad_seq = a.Seq
     where 1=1
     and bb.borad_seq = a.seq
 )as 조회수
+, (select 
+	count(*)
+    from boardLike dd
+    where 1=1
+    and dd.borad_seq = a.seq
+)as 좋아요 
 from borad a
-	left join member aa on aa.seq = a.regSeq
+	left join member b on b.seq = a.regSeq
 where 1=1
 ;
+select*from member;
+select*from boradMaster;
+select*from boradCount;
+select*from boradComment;
+select*from borad;
+select*from boardLike;
+select*from boardAttached;
